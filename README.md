@@ -1,14 +1,5 @@
 <div align="center">
 
-<br/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
-  <source media="(prefers-color-scheme: light)" srcset="./logo.png">
-  <img src="./assets/logo.png" alt="FuezCSS Logo" width="90" height="90" />
-</picture>
-
-<br/><br/>
 
 <h2>FuezCSS</h2>
 
