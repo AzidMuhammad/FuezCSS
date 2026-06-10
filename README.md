@@ -1,161 +1,155 @@
 <div align="center">
 
-<br />
+<br/>
 
-<img src="https://fuezcss.netlify.app/logo.png" alt="FuezCSS" width="72" height="72" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
+  <source media="(prefers-color-scheme: light)" srcset="./logo.png">
+  <img src="./logo.png" alt="FuezCSS Logo" width="90" height="90" />
+</picture>
 
-<h1>FuezCSS</h1>
+<br/><br/>
 
-<p>
-  A lightweight, utility-first CSS framework powered by PostCSS.<br />
-  Scan. Generate. Ship — only the CSS you actually use.
-</p>
+<h2>FuezCSS</h2>
 
-<p>
-  <a href="https://www.npmjs.com/package/fuezcss"><img src="https://img.shields.io/npm/v/fuezcss?style=flat-square&colorA=18181B&colorB=6C47FF" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/fuezcss"><img src="https://img.shields.io/npm/dm/fuezcss?style=flat-square&colorA=18181B&colorB=6C47FF" alt="monthly downloads" /></a>
-  <a href="https://github.com/AzidMuhammad/fuezcss/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/fuezcss?style=flat-square&colorA=18181B&colorB=6C47FF" alt="license" /></a>
-  <a href="https://fuezcss.netlify.app"><img src="https://img.shields.io/badge/docs-fuezcss.netlify.app-6C47FF?style=flat-square&colorA=18181B" alt="documentation" /></a>
-</p>
+<p>Utility-first CSS framework, powered by PostCSS.<br/>Scan your templates. Generate only what you use. Ship clean CSS.</p>
 
-<p>
-  <a href="https://fuezcss.netlify.app">Documentation</a> ·
-  <a href="https://fuezcss.netlify.app/playground">Playground</a> ·
-  <a href="https://github.com/AzidMuhammad/fuezcss/issues">Report a Bug</a> ·
-  <a href="https://github.com/AzidMuhammad/fuezcss/discussions">Discussions</a>
-</p>
+<br/>
 
-<br />
+[![npm](https://img.shields.io/npm/v/fuezcss?style=flat-square&color=000&labelColor=000&logo=npm&logoColor=fff)](https://www.npmjs.com/package/fuezcss)
+[![downloads](https://img.shields.io/npm/dm/fuezcss?style=flat-square&color=000&labelColor=000)](https://www.npmjs.com/package/fuezcss)
+[![license](https://img.shields.io/npm/l/fuezcss?style=flat-square&color=000&labelColor=000)](./LICENSE)
+[![docs](https://img.shields.io/badge/docs-online-000?style=flat-square&labelColor=000)](https://fuezcss.netlify.app)
+
+<br/>
+
+**[Documentation](https://fuezcss.netlify.app)** · **[Playground](https://fuezcss.netlify.app/playground)** · **[Changelog](./CHANGELOG.md)**
+
+<br/>
 
 </div>
 
 ---
 
-## Overview
+## What is FuezCSS?
 
-FuezCSS scans all of your HTML files, JavaScript components, and templates for class names, generates the corresponding styles, and writes them to a single static CSS file. Only the classes you use make it into your bundle — nothing else.
+FuezCSS scans your HTML files, JavaScript components, and templates for class names — then generates **only** the CSS you actually reference. The result is a single, static `.css` file with no unused rules and no JavaScript runtime.
 
-```html
-<body class="bg-modern-black">
-  <h1 class="text-base font-strong font-modern-white">
-    Hello world!
-  </h1>
-</body>
-```
-
-No runtime overhead. No unused styles. Just clean, production-ready CSS.
-
----
-
-## Features
-
-- **Utility-first** — compose styles directly in your markup, no custom CSS required
-- **Scan-based** — generates only the classes referenced in your source files
-- **PostCSS-native** — integrates into any existing PostCSS pipeline in seconds
-- **Configurable theme** — extend colors, typography, and spacing in `fuez.config.js`
-- **Plugin architecture** — add your own utilities, components, and directives
-- **Zero JS runtime** — the output is a plain, static `.css` file
-
----
-
-## Getting Started
-
-### Installation
-
-```bash
-npm install fuezcss postcss postcss-cli autoprefixer
-```
-
-### Initialize
-
-```bash
-npx fuezcss init
-```
-
-This creates `postcss.config.js` and `fuez.config.js` in your project root.
-
----
-
-## Configuration
-
-### `postcss.config.js`
-
-```js
-module.exports = {
-  plugins: [
-    require('fuezcss'),
-    require('autoprefixer')
-  ]
-}
-```
-
-### `fuez.config.js`
-
-```js
-module.exports = {
-  theme: {
-    extend: {
-      // Override or extend default tokens here
-    }
-  },
-  plugins: []
-}
-```
-
----
-
-## Usage
-
-### 1 — Add directives to your entry CSS
-
-Create `src/assets/index.css`:
+It works as a PostCSS plugin, so it drops into any existing pipeline with one line of config.
 
 ```css
+/* src/assets/index.css */
 @fuezcss base;
 @fuezcss layout;
 @fuezcss utilities;
 ```
 
-### 2 — Build
+```bash
+npx postcss src/assets/index.css -o src/assets/fuez.css
+```
+
+---
+
+## Install
+
+```bash
+npm install fuezcss postcss postcss-cli autoprefixer
+npx fuezcss init
+```
+
+`fuezcss init` scaffolds both `postcss.config.js` and `fuez.config.js` automatically.
+
+---
+
+## Quick Start
+
+### 1. Configure PostCSS
+
+```js
+// postcss.config.js
+module.exports = {
+  plugins: [
+    require('fuezcss'),
+    require('autoprefixer'),
+  ],
+}
+```
+
+### 2. Configure your theme
+
+```js
+// fuez.config.js
+module.exports = {
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+### 3. Add directives
+
+```css
+/* src/assets/index.css */
+@fuezcss base;       /* reset + base styles     */
+@fuezcss layout;     /* grid, navbar, containers */
+@fuezcss utilities;  /* colors, type, spacing    */
+```
+
+### 4. Build
 
 ```bash
 npx postcss src/assets/index.css -o src/assets/fuez.css
 ```
 
-### 3 — Import in your HTML
+### 5. Import and use
 
 ```html
 <!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/src/assets/fuez.css" rel="stylesheet" />
   </head>
   <body class="bg-modern-black">
-    <h1 class="text-base font-strong font-modern-white">Hello world!</h1>
+
+    <div class="navbar clear nav-top">
+      <div class="row content">
+        <a href="#">
+          <img class="logo" src="/assets/logo.png" />
+        </a>
+      </div>
+    </div>
+
+    <h1 class="text-base font-strong font-modern-white">
+      Hello world!
+    </h1>
+
   </body>
 </html>
-```
-
-### 4 — Run your project
-
-```bash
-npm run dev
 ```
 
 ---
 
 ## Utility Reference
 
+### Layout
+
+| Class | Description |
+|---|---|
+| `navbar` | Horizontal navigation bar |
+| `nav-top` | Pins navbar to top of viewport |
+| `clear` | Clears floated children |
+| `row` | Flex row container |
+| `content` | Centered content wrapper with max-width |
+
 ### Colors
 
-| Class | Value | Usage |
-|---|---|---|
-| `bg-modern-black` | `#0a0a0a` | Background |
-| `bg-modern-white` | `#ffffff` | Background |
-| `font-modern-black` | `#0a0a0a` | Text color |
-| `font-modern-white` | `#ffffff` | Text color |
+| Class | Description |
+|---|---|
+| `bg-modern-black` | Background — deep black `#0a0a0a` |
+| `bg-modern-white` | Background — clean white `#ffffff` |
+| `font-modern-black` | Text — deep black |
+| `font-modern-white` | Text — clean white |
 
 ### Typography
 
@@ -165,42 +159,31 @@ npm run dev
 | `text-base` | `font-size` | `1rem` |
 | `text-lg` | `font-size` | `1.125rem` |
 | `text-xl` | `font-size` | `1.25rem` |
-| `text-2xl` | `font-size` | `1.5rem` |
 | `font-light` | `font-weight` | `300` |
 | `font-normal` | `font-weight` | `400` |
 | `font-strong` | `font-weight` | `700` |
 
-### Layout
+### Spacing
+
+Scale: `1` = `0.25rem`, `2` = `0.5rem`, `4` = `1rem`, `8` = `2rem`
 
 | Class | Property |
 |---|---|
-| `flex` | `display: flex` |
-| `grid` | `display: grid` |
-| `block` | `display: block` |
-| `inline` | `display: inline` |
-| `hidden` | `display: none` |
+| `p-{n}` | Padding — all sides |
+| `px-{n}` | Padding — horizontal |
+| `py-{n}` | Padding — vertical |
+| `m-{n}` | Margin — all sides |
+| `mx-{n}` | Margin — horizontal |
+| `my-{n}` | Margin — vertical |
 
-### Spacing
-
-FuezCSS uses a base-4 scale (`p-1` = `0.25rem`, `p-2` = `0.5rem`, etc.):
-
-| Class | Shorthand |
-|---|---|
-| `p-{n}` | `padding` all sides |
-| `px-{n}` | `padding-left` + `padding-right` |
-| `py-{n}` | `padding-top` + `padding-bottom` |
-| `m-{n}` | `margin` all sides |
-| `mx-{n}` | `margin-left` + `margin-right` |
-| `my-{n}` | `margin-top` + `margin-bottom` |
-
-> Full reference at **[fuezcss.netlify.app](https://fuezcss.netlify.app)**
+> Full reference → **[fuezcss.netlify.app/docs](https://fuezcss.netlify.app/docs)**
 
 ---
 
 ## Framework Integration
 
 <details>
-<summary><strong>Vite</strong></summary>
+<summary>Vite</summary>
 
 ```js
 // vite.config.js
@@ -208,70 +191,64 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   css: {
-    postcss: './postcss.config.js'
-  }
+    postcss: './postcss.config.js',
+  },
 })
 ```
 
 </details>
 
 <details>
-<summary><strong>Next.js</strong></summary>
+<summary>Next.js</summary>
 
 ```js
 // postcss.config.js
 module.exports = {
   plugins: {
     fuezcss: {},
-    autoprefixer: {}
-  }
+    autoprefixer: {},
+  },
 }
 ```
 
-Then import the built file in `_app.js`:
-
 ```js
+// pages/_app.js
 import '../styles/fuez.css'
 ```
 
 </details>
 
 <details>
-<summary><strong>Vue 3 / Nuxt</strong></summary>
+<summary>Vue 3 / Nuxt</summary>
 
 ```js
 // postcss.config.cjs
 module.exports = {
   plugins: {
     fuezcss: {},
-    autoprefixer: {}
-  }
+    autoprefixer: {},
+  },
 }
 ```
 
-```js
+```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
   postcss: {
-    plugins: {
-      fuezcss: {}
-    }
-  }
+    plugins: { fuezcss: {} },
+  },
 })
 ```
 
 </details>
 
 <details>
-<summary><strong>React / Create React App</strong></summary>
+<summary>SvelteKit</summary>
 
 ```js
 // postcss.config.js
 module.exports = {
-  plugins: [
-    require('fuezcss'),
-    require('autoprefixer')
-  ]
+  plugins: [require('fuezcss'), require('autoprefixer')],
 }
 ```
 
@@ -281,16 +258,15 @@ module.exports = {
 
 ## Extending the Theme
 
-Add custom tokens in `fuez.config.js` under `theme.extend`:
-
 ```js
+// fuez.config.js
 module.exports = {
   theme: {
     extend: {
       colors: {
         brand:       '#6C47FF',
-        'brand-50':  '#EDE9FF',
-        'brand-900': '#1E0A7A',
+        'brand-light': '#A78BFA',
+        'brand-dark':  '#4C2DB3',
       },
       fontFamily: {
         sans:    ['Inter', 'sans-serif'],
@@ -299,9 +275,10 @@ module.exports = {
       spacing: {
         18: '4.5rem',
         72: '18rem',
-      }
-    }
-  }
+        96: '24rem',
+      },
+    },
+  },
 }
 ```
 
@@ -313,48 +290,44 @@ module.exports = {
 your-project/
 ├── src/
 │   └── assets/
-│       ├── index.css       ← @fuezcss directives
-│       └── fuez.css        ← generated output (gitignore this)
-├── fuez.config.js           ← theme & plugin config
-├── postcss.config.js        ← PostCSS pipeline
+│       ├── index.css       ← @fuezcss directives (source)
+│       └── fuez.css        ← generated output   (add to .gitignore)
+├── fuez.config.js
+├── postcss.config.js
 └── package.json
 ```
 
-> **Tip:** Add `src/assets/fuez.css` to your `.gitignore` — it's a build artifact, not source code.
+Add the output file to `.gitignore` — it's a build artifact:
+
+```
+# .gitignore
+src/assets/fuez.css
+```
 
 ---
 
 ## Contributing
 
-All contributions are welcome — bug fixes, new utilities, documentation improvements, or framework integrations.
+Contributions are welcome — new utilities, bug fixes, documentation, framework guides.
 
 ```bash
-# Clone the repo
 git clone https://github.com/AzidMuhammad/fuezcss.git
 cd fuezcss
-
-# Install dependencies
 npm install
-
-# Run tests
-npm test
-
-# Build
 npm run build
+npm test
 ```
 
-Please open an issue before submitting a large PR so we can discuss the direction first.
+Open an issue before submitting a large pull request so we can align on direction first.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](./LICENSE) for details.
+[MIT](./LICENSE) © [Azid Muhammad](https://github.com/AzidMuhammad)
 
 ---
 
 <div align="center">
-
-<sub>Built with ❤️ by <a href="https://github.com/AzidMuhammad">Azid Muhammad</a></sub>
-
+<sub>Made with care by <a href="https://github.com/AzidMuhammad">Azid Muhammad</a></sub>
 </div>
