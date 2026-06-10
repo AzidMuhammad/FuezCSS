@@ -5,7 +5,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
   <source media="(prefers-color-scheme: light)" srcset="./logo.png">
-  <img src="./logo.png" alt="FuezCSS Logo" width="90" height="90" />
+  <img src="./assets/logo.png" alt="FuezCSS Logo" width="90" height="90" />
 </picture>
 
 <br/><br/>
